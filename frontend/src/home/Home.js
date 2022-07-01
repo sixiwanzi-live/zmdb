@@ -23,20 +23,27 @@ export const Home = () => {
     const params = useParams();
 
     const onSearch = (searchWord) => {
-        if (selectedAuthors.length > 0 && searchWord.length > 0) {
-            setSearchWord(searchWord);
-            const authorIds = selectedAuthors.map(selectedAuthor => selectedAuthor.id).join(',');
-            setLoading(true);
-            ClipApi.find(authorIds, searchWord).then(res => {
+        if (searchWord.length > 0) {
+            if (selectedAuthors.length > 0) {
+                setSearchWord(searchWord);
+                const authorIds = selectedAuthors.map(selectedAuthor => selectedAuthor.id).join(',');
+                setLoading(true);
+                ClipApi.find(authorIds, searchWord).then(res => {
+                    const clips = res.data || [];
+                    setClips(clips);
+                    setLoading(false);
+                    onMessage({
+                        type: 'success',
+                        content: `总共查询到${clips.length}条直播记录`
+                    });
+                }).catch(ex => {
+                    setLoading(false);
+                });
+            }
+        } else {
+            ClipApi.findByOrganizationId(params.organizationId).then(res => {
                 const clips = res.data || [];
                 setClips(clips);
-                setLoading(false);
-                onMessage({
-                    type: 'success',
-                    content: `总共查询到${clips.length}条直播记录`
-                });
-            }).catch(ex => {
-                setLoading(false);
             });
         }
     }
