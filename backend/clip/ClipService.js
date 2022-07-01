@@ -184,10 +184,11 @@ export default class ClipService {
                 r.push(item);
             }
         });
-        r.sort((a, b) => {
-            return b.localeCompare(a);
-        });
-        console.log(r.slice(0, 5));
+        if (r.length > 1) {
+            r.sort((a, b) => {
+                return b.localeCompare(a);
+            });
+        }
         return r;
     }
 }
