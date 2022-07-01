@@ -68,6 +68,7 @@ export const Home = () => {
                 setClips(clips);
             });
         } else {
+            console.log('a');
             setAuthors([]);
             setSelectedAuthors([]);
             setClips([]);
