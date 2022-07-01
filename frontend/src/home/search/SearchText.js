@@ -13,9 +13,7 @@ export const SearchText = () => {
     }
 
     const onClick = (e) => {
-        if (inputText.length > 0) {
-            onSearch(inputText);
-        }
+        onSearch(inputText);
     }
     
     const onKeyPress = (e) => {

@@ -22,13 +22,13 @@ export const Home = () => {
 
     const params = useParams();
 
-    const onSearch = (searchWord) => {
-        if (searchWord.length > 0) {
+    const onSearch = (inputText) => {
+        if (inputText.length > 0) {
             if (selectedAuthors.length > 0) {
-                setSearchWord(searchWord);
+                setSearchWord(inputText);
                 const authorIds = selectedAuthors.map(selectedAuthor => selectedAuthor.id).join(',');
                 setLoading(true);
-                ClipApi.find(authorIds, searchWord).then(res => {
+                ClipApi.find(authorIds, inputText).then(res => {
                     const clips = res.data || [];
                     setClips(clips);
                     setLoading(false);
