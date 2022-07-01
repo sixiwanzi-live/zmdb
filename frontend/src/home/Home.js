@@ -41,10 +41,12 @@ export const Home = () => {
                 });
             }
         } else {
-            ClipApi.findByOrganizationId(params.organizationId).then(res => {
-                const clips = res.data || [];
-                setClips(clips);
-            });
+            if (params.organizationId) {
+                ClipApi.findByOrganizationId(params.organizationId).then(res => {
+                    const clips = res.data || [];
+                    setClips(clips);
+                });
+            }
         }
     }
 
@@ -68,7 +70,7 @@ export const Home = () => {
                 setClips(clips);
             });
         } else {
-            console.log('a');
+            setSearchWord('');
             setAuthors([]);
             setSelectedAuthors([]);
             setClips([]);
