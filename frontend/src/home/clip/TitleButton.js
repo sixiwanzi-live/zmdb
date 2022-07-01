@@ -32,7 +32,7 @@ export const TitleButton = ({clip}) => {
 
     return (
         <React.Fragment>
-            <Button variant='text' onClick={onClick}>{clip.title}</Button>
+            <Button sx={{justifyContent:'none'}} variant='text' onClick={onClick}>{clip.title}</Button>
             <SubtitleDialog status={status} setStatus={setStatus} clip={clip} subtitles={subtitles} />
         </React.Fragment>
     )
