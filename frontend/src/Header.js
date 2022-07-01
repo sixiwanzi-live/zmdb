@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { AppBar, IconButton, Link, Toolbar, Typography } from '@mui/material';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
+import { AppBar, Link, Toolbar, Typography } from '@mui/material';
 
 export const Header = () => {
     return (

@@ -67,6 +67,10 @@ export const Home = () => {
                 const clips = res.data || [];
                 setClips(clips);
             });
+        } else {
+            setAuthors([]);
+            setSelectedAuthors([]);
+            setClips([]);
         }
     }, [params]);
 
