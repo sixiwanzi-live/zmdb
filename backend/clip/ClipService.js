@@ -184,11 +184,9 @@ export default class ClipService {
                 r.push(item);
             }
         });
-        if (r.length > 1) {
-            r.sort((a, b) => {
-                return b.localeCompare(a);
-            });
-        }
+        r.sort((a, b) => {
+            return b.datetime.localeCompare(a.datetime);
+        });
         return r;
     }
 }
