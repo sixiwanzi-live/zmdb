@@ -8,10 +8,7 @@ export const Sidebar = () => {
 
     const { organizations } = React.useContext(context);
     const params = useParams();
-
-    // if (!params.organizationId) {
-    //     return <Navigate to="/organizations/1" replace={true} />
-    // }
+    
     return (
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
             <List sx={{ p:0 }} component='nav'>

@@ -60,6 +60,8 @@ export const Home = () => {
                 const clips = res.data || [];
                 setClips(clips);
             });
+
+            setSearchWord("");
         }
     }, [params]);
 
