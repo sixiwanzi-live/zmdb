@@ -184,9 +184,11 @@ export default class ClipService {
                 r.push(item);
             }
         });
+        console.log(r);
         r.sort((a, b) => {
             b.datetime < a.datetime;
         });
+        console.log(r);
         return r;
     }
 }
