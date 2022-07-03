@@ -41,7 +41,7 @@ export default class AuthorService {
             throw error.files.NotFound;
         }
         const extension = toExtension(filename);
-        const dst = `authors/${organizationId}/${id}${extension}`;
+        const dst = `authors/${author.organizationId}/${id}${extension}`;
         const src = filename;
         await ctx.fileClient.move(src, dst);
 
