@@ -1,4 +1,5 @@
 import { pinyin } from 'pinyin-pro';
+import axios from 'axios';
 import error from "../error.js";
 import validation from "../validation.js";
 import config from "../config.js";
@@ -188,5 +189,24 @@ export default class ClipService {
             return b.datetime.localeCompare(a.datetime);
         });
         return r;
+    }
+
+    fetchVideoUrl = async (ctx) => {
+        const id = parseInt(ctx.params.id);
+        let clip = ctx.clipDao.findById(id);
+        if (!clip) {
+            throw error.clip.NotFound;
+        }
+        const res1 = await axios.get(`https://api.bilibili.com/x/web-interface/view?bvid=${clip.bv}`);
+        if (!res1 || !res1.data) {
+            throw error.clip.video.FetchCidFailed;
+        }
+        const cid = res1.data.data.cid;
+        const res2 = await axios.get(`http://api.bilibili.com/x/player/playurl?bvid=${clip.bv}&cid=${cid}&platform=html5`);
+        if (!res2 || !res2.data) {
+            throw error.clip.video.FetchUrlFailed;
+        }
+        const url = res2.data.data.durl[0].url;
+        return {url};
     }
 }

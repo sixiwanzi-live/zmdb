@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Button } from '@mui/material';
 import { context as globalContext } from '../../context';
 import { context } from '../context';
-import SubtitlesApi from '../../api/SubtitleApi';
-import BiliApi from '../../api/BiliApi';
+import ClipApi from '../../api/ClipApi';
+import SubtitleApi from '../../api/SubtitleApi';
 import { SubtitleDialog } from '../subtitle/SubtitleDialog';
 
 export const TitleButton = ({clip}) => {
@@ -13,14 +13,17 @@ export const TitleButton = ({clip}) => {
     const {setLoading, onMessage} = React.useContext(globalContext);
     const { searchWord } = React.useContext(context);
 
-    const onClick = () => {
+    const onClick = async () => {
         setLoading(true);
-        SubtitlesApi.findByClipId(clip.id, searchWord).then(res => {
-            let subtitles = res.data || [];
+        try {
+            const res1 = await ClipApi.fetchVideo(clip.id);
+            clip.url = res1.data.url;
+            const res2 = await SubtitleApi.findByClipId(clip.id, searchWord);
+            let subtitles = res2.data || [];
             setSubtitles(subtitles);
             setLoading(false);
             setStatus(true);
-        }).catch(ex => {
+        } catch (ex) {
             console.log(ex);
             setLoading(false);
             const error = ex.response.data;
@@ -28,10 +31,7 @@ export const TitleButton = ({clip}) => {
                 type: 'error',
                 content: `[${error.code}] ${error.message}`
             });
-        });
-        BiliApi.findCidByBv(clip.bv).then(res => {
-            
-        });
+        }
     }
 
     return (

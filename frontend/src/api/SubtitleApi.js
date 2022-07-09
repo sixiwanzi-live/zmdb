@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 
-export default class SubtitlesApi {
+export default class SubtitleApi {
 
     static findByClipId = (clipId, keyword) => {
         return axios.get(`${config.url.api}/clips/${clipId}/subtitles`, {

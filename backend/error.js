@@ -111,20 +111,30 @@ export default {
                 code: 400100128,
                 message: `搜索词长度不能大于${validation.clip.content.upperLimit}字符`
             }
+        },
+        video: {
+            FetchCidFailed: {
+                code: 400100129,
+                message: `请求获取cid失败`
+            },
+            FetchUrlFailed: {
+                code: 400100130,
+                message: `请求获取VideoUrl失败`
+            }
         }
     },
     subtitle: {
         NotFound: {
-            code: 400100130,
+            code: 400100140,
             message: '字幕不存在'
         },
         content: {
             LengthTooShort: {
-                code: 400100131,
+                code: 400100141,
                 message: `字幕内容不能小于${validation.subtitle.content.lowerLimit}字符`
             },
             ParseError: {
-                code: 400100122,
+                code: 400100142,
                 message: `字幕文本解析错误`
             }
         }

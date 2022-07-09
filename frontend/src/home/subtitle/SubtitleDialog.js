@@ -52,11 +52,8 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
 
     return (
         <Dialog fullscreen='true' fullWidth={true} maxWidth='lg' open={status} onClose={onClose}>
-            <DialogTitle>
-                {clip.title}
-            </DialogTitle>
-            <DialogContent sx={{ display:'flex', height:'50rem' }}>
-                <Box sx={{display:'flex', flex:2}}>
+            <DialogContent sx={{ display:'flex', height:'50rem', mt:'16px' }}>
+                <Box sx={{display:'flex', flex:1.4}}>
                     <Box sx={{ flex:1 }}>
                         <Tabs
                             sx={{ borderRight: 1, borderColor: 'divider' }}
@@ -86,17 +83,22 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                                     <SubtitleTable 
                                         match={-1} 
                                         clip={clip} 
-                                        subtitles={subtitles.filter(subtitle => pinyinChecked ? subtitle.matchMode === 1 || subtitle.matchMode === 2 : subtitle.matchMode === 1)} /> 
+                                        subtitles={subtitles.filter(subtitle => pinyinChecked ? subtitle.matchMode === 1 || subtitle.matchMode === 2 : subtitle.matchMode === 1)} 
+                                        setCurrentTime={setCurrentTime} 
+                                    /> 
                                 </Box>
                             }
                         </div>
                     </Box>
                 </Box>
-                {/* <Box sx={{flex:1}}>
-                    <video id='my-video' width="320" height="240" controls>
-                        <source src="https://upos-sz-mirrorali02.bilivideo.com/upgcxcode/71/68/720376871/720376871-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1656785643&gen=playurlv2&os=ali02bv&oi=0&trid=5e84aa4281414baf8dfda82fa5a4a348h&mid=95111328&platform=html5&upsig=c6b3c1f9928fcc387cfe29a4347bfbe1&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&bvc=vod&nettype=0&bw=52872&logo=80000000" type="video/mp4" />
+                <Box sx={{flex:1, ml:'1rem'}}>
+                    <DialogTitle>
+                        {clip.title}
+                    </DialogTitle>
+                    <video id='my-video' width="432" height="270" controls>
+                        <source src={clip.url} type="video/mp4" />
                     </video>
-                </Box>        */}
+                </Box>       
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>关闭</Button>
