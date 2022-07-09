@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { context as globalContext } from '../../context';
 import { context } from '../context';
 import SubtitlesApi from '../../api/SubtitleApi';
+import BiliApi from '../../api/BiliApi';
 import { SubtitleDialog } from '../subtitle/SubtitleDialog';
 
 export const TitleButton = ({clip}) => {
@@ -27,6 +28,9 @@ export const TitleButton = ({clip}) => {
                 type: 'error',
                 content: `[${error.code}] ${error.message}`
             });
+        });
+        BiliApi.findCidByBv(clip.bv).then(res => {
+            
         });
     }
 
