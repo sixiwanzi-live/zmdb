@@ -25,7 +25,7 @@ export default class SubtitleService {
             throw error.author.NotFound;
         }
 
-        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+        if (ctx.state.auth.organizationId !== 0 && ctx.state.auth.organizationId !== author.organizationId) {
             throw error.auth.Unauthorized;
         }
 
@@ -57,7 +57,7 @@ export default class SubtitleService {
             throw error.author.NotFound;
         }
 
-        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+        if (ctx.state.auth.organizationId !== 0 && ctx.state.auth.organizationId !== author.organizationId) {
             throw error.auth.Unauthorized;
         }
 

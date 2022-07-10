@@ -23,7 +23,7 @@ export default class ClipService {
         if (!author) {
             throw error.author.NotFound;
         }
-        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+        if (ctx.state.auth.organizationId !== 0 && ctx.state.auth.organizationId !== author.organizationId) {
             throw error.auth.Unauthorized;
         }
         clip.authorId = authorId;
@@ -86,7 +86,7 @@ export default class ClipService {
             throw error.clip.NotFound;
         }
         const author = ctx.authorDao.findById(clip.authorId);
-        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+        if (ctx.state.auth.organizationId !== 0 && ctx.state.auth.organizationId !== author.organizationId) {
             throw error.auth.Unauthorized;
         }
 
@@ -146,7 +146,7 @@ export default class ClipService {
         const id = parseInt(ctx.params.id);
         const clip = ctx.clipDao.findById(id);
         const author = ctx.authorDao.findById(id);
-        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+        if (ctx.state.auth.organizationId !== 0 && ctx.state.auth.organizationId !== author.organizationId) {
             throw error.auth.Unauthorized;
         }
         ctx.clipDao.deleteById(id);
