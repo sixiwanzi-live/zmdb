@@ -4,6 +4,8 @@ import Button from '@mui/material/Button'
 import { SubtitleButtonGroup } from './SubtitleButtonGroup';
 import { SubtitleTable } from './SubtitleTable';
 import { context } from '../context';
+import config from '../../config';
+
 
 export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
 
@@ -24,6 +26,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
     const setCurrentTime = (currentTime) => {
         const video = document.getElementById('my-video');
         video.currentTime = currentTime;
+        video.play();
     }
 
     React.useEffect(() => {
@@ -53,7 +56,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
     return (
         <Dialog fullscreen='true' fullWidth={true} maxWidth='lg' open={status} onClose={onClose}>
             <DialogContent sx={{ display:'flex', height:'50rem', mt:'16px' }}>
-                <Box sx={{display:'flex', flex:1.4}}>
+                <Box sx={{display:'flex', flex:65}}>
                     <Box sx={{ flex:1 }}>
                         <Tabs
                             sx={{ borderRight: 1, borderColor: 'divider' }}
@@ -91,11 +94,17 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                         </div>
                     </Box>
                 </Box>
-                <Box sx={{flex:1, ml:'1rem'}}>
+                <Box sx={{flex:35, ml:'1rem'}}>
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>
-                    <video id='my-video' width="432" height="270" controls>
+                    <video 
+                        id='my-video' 
+                        width="400" 
+                        height="225" 
+                        autoplay="true" 
+                        controls="true"
+                        poster={`${config.url.file}/clips/${clip.author.organizationId}/${clip.author.id}/${clip.id}@400x225.webp`}>
                         <source src={clip.url} type="video/mp4" />
                     </video>
                 </Box>       

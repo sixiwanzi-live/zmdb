@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Box, Button, Divider, Link } from '@mui/material';
+import { Box, Button, Divider, Link, IconButton } from '@mui/material';
+import ForwardIcon from '@mui/icons-material/Forward';
 import { FixedSizeList } from 'react-window';
 import config from '../../config';
 import { toTime } from '../../utils';
@@ -26,6 +27,22 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
                             {toTime(data.subtitles[index].start)}
                         </Button>
                     </Box>
+                    <Box sx={{ flex:1 , justifyContent:'left'}}>
+                    <IconButton 
+                        sx={{p:0}}
+                        color="primary" 
+                        aria-label="add an alarm" 
+                        component="a"
+                        target='_blank' 
+                        underline="hover" 
+                        rel ="noreferrer" 
+                        size="small"
+                        href={`${config.url.clip}/${data.clip.bv}?start_progress=${data.subtitles[index].start}`}
+                    >
+                        <ForwardIcon fontSize='inherit'/>
+                    </IconButton>
+                        {/* <Link target='_blank' underline="hover" rel ="noreferrer" href={`${config.url.clip}/${data.clip.bv}?start_progress=${data.subtitles[index].start}`}>跳</Link> */}
+                    </Box>
                     <Box sx={{ flex:9 }} dangerouslySetInnerHTML={{__html:data.subtitles[index].markedContent}} />
                 </Box>
             </div>
@@ -37,6 +54,7 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
             <Box sx={{ display:'flex' }}>
                 <Box sx={{ flex:1 }}>序号</Box>
                 <Box sx={{ flex:3 }}>时间</Box>
+                <Box sx={{ flex:1 }}>跳转</Box>
                 <Box sx={{ flex:9 }}>字幕</Box>
             </Box>
             <Box sx={{ mt:'1rem', mb:'1rem'}}>
