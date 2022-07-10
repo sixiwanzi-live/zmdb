@@ -92,7 +92,7 @@ router.get('/clips/:id/video', async ctx=> {
 /**
  * subtitles
  */
-router.post('/clips/:clipId/subtitles', async ctx => {
+router.post('/clips/:clipId/subtitles', auth, async ctx => {
     ctx.body = await ctx.subtitleService.insert(ctx);
 });
 router.get('/clips/:clipId/subtitles', async ctx => {

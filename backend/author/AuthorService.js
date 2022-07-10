@@ -16,6 +16,9 @@ export default class AuthorService {
         let author = {};
         // 检查参数合法性
         const organizationId = entity.organizationId;
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== organizationId) {
+            throw error.auth.Unauthorized;
+        }
         if (!ctx.organizationDao.findById(organizationId)) {
             throw error.organization.NotFound;
         }
@@ -62,6 +65,9 @@ export default class AuthorService {
         if (!author) {
             throw error.author.NotFound;
         }
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
         if (entity.hasOwnProperty('organizationId')) {
             const organizationId = entity.organizationId;
             if (!ctx.organizationDao.findById(organizationId)) {
@@ -102,6 +108,9 @@ export default class AuthorService {
     deleteById = async (ctx) => {
         const id = entity.id;
         const author = ctx.authorDao.findById(id);
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
         ctx.authorDao.deleteById(id);
 
         const file = `authors/${author.organizationId}/${id}.webp`;

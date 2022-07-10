@@ -11,6 +11,9 @@ export default class OrganzationService {
      * @returns 
      */
     insert = async (ctx) => {
+        if (ctx.state.auth.organizationId !== 0) {
+            throw error.auth.Unauthorized;
+        }
         const entity = ctx.request.body;
 
         let organization = {};
@@ -48,6 +51,9 @@ export default class OrganzationService {
      * @returns 
      */
     update = async (ctx) => {
+        if (ctx.state.auth.organizationId !== 0) {
+            throw error.auth.Unauthorized;
+        }
         const id = parseInt(ctx.params.id);
         const entity = ctx.request.body;
         // 检查参数合法性
@@ -83,6 +89,9 @@ export default class OrganzationService {
     }
 
     deleteById = async (ctx) => {
+        if (ctx.state.auth.organizationId !== 0) {
+            throw error.auth.Unauthorized;
+        }
         const id = ctx.params.id;
         ctx.organizationDao.deleteById(id);
         

@@ -23,6 +23,9 @@ export default class ClipService {
         if (!author) {
             throw error.author.NotFound;
         }
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
         clip.authorId = authorId;
 
         const title = entity.title || '';
@@ -82,6 +85,10 @@ export default class ClipService {
         if (!clip) {
             throw error.clip.NotFound;
         }
+        const author = ctx.authorDao.findById(clip.authorId);
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
 
         if (entity.hasOwnProperty('authorId')) {
             const authorId = entity.authorId || 0;
@@ -139,6 +146,9 @@ export default class ClipService {
         const id = parseInt(ctx.params.id);
         const clip = ctx.clipDao.findById(id);
         const author = ctx.authorDao.findById(id);
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
         ctx.clipDao.deleteById(id);
         
         const file = `clips/${author.organizationId}/${clip.authorId}/${id}.webp`;

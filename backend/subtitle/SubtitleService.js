@@ -25,6 +25,10 @@ export default class SubtitleService {
             throw error.author.NotFound;
         }
 
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
+        }
+
         // TODO 去掉符号
         content = content.replace(/<[^><]*>/g, '');
         if (content.length < validation.subtitle.content.lowerLimit) {
@@ -51,6 +55,10 @@ export default class SubtitleService {
         const author = ctx.authorDao.findById(clip.authorId);
         if (!author) {
             throw error.author.NotFound;
+        }
+
+        if (ctx.state.auth.organizationId !== 0 || ctx.state.auth.organizationId !== author.organizationId) {
+            throw error.auth.Unauthorized;
         }
 
         ctx.subtitleDao.deleteByClipId(clipId); // 删除历史字幕

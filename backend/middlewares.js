@@ -21,7 +21,12 @@ export async function errorHandler(ctx, next) {
 
 export async function auth(ctx, next) {
     const token = ctx.header.authorization;
-    if (token !== "Bearer " + config.auth.secretKey) {
+    config.auths.forEach(auth => {
+        if (`Bearer ${auth.secretKey}` === token) {
+            ctx.state.auth = auth;
+        }
+    });
+    if (!ctx.state.auth) {
         throw error.auth.Unauthorized;
     }
     await next();
