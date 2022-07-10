@@ -202,7 +202,7 @@ export default class ClipService {
             throw error.clip.video.FetchCidFailed;
         }
         const cid = res1.data.data.cid;
-        const res2 = await axios.get(`http://api.bilibili.com/x/player/playurl?bvid=${clip.bv}&cid=${cid}&platform=html5`);
+        const res2 = await axios.get(`http://api.bilibili.com/x/player/playurl?bvid=${clip.bv}&cid=${cid}&platform=html5&qn=16`);
         if (!res2 || !res2.data) {
             throw error.clip.video.FetchUrlFailed;
         }
