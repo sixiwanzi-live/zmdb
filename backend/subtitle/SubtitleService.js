@@ -30,8 +30,9 @@ export default class SubtitleService {
         }
 
         // \r\n全部转换为\n，换行符统一化
+        content = content.replace('\r\n', '\n');
         // TODO 去掉符号
-        content = content.replace('\r\n', '\n').replace(/<[^><]*>/g, '');
+        content = content.replace(/<[^><]*>/g, '');
         if (content.length < validation.subtitle.content.lowerLimit) {
             throw error.subtitle.content.LengthTooShort;
         }
