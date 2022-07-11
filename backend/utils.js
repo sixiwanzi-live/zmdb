@@ -15,7 +15,7 @@ export class Srt {
 
     parse = (content) => {
         let r = new Array();
-        const lines = content.split('\r\n');
+        const lines = content.split('\n');
         for (let i = 0; i < lines.length; i += 4) {
             if (lines[i] !== '') {
                 const duration = lines[i + 1].split(' --> ');
