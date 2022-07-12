@@ -54,6 +54,12 @@ export default class ClipDao {
         return stmt.get(id);
     }
 
+    findByBv = (bv) => {
+        const sql = 'SELECT * FROM clip WHERE bv=?';
+        const stmt = this.db.prepare(sql);
+        return stmt.get(bv);
+    }
+
     findByOrganizationId = (organizationId) => {
         const sql = 'SELECT ' + 
                         'clip.id as clip_id, ' +

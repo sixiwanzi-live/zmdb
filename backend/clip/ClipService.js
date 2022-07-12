@@ -42,6 +42,13 @@ export default class ClipService {
         if (bv.length !== validation.clip.bv.limit) {
             throw error.clip.bv.IllegalFormat;
         }
+        // 检查bv是否存在
+        const authorByBv = ctx.clipDao.findByBv(bv);
+        if (!authorByBv) {
+            let error = error.clip.bv.SameBv;
+            error.message = `${error.message}:${authorByBv.id}`;
+            throw error;
+        }
         clip.bv = bv;
 
         // TODO 增加datetime格式校验

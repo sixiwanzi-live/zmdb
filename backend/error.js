@@ -73,17 +73,21 @@ export default {
         title: {
             LengthTooShort: {
                 code: 400100121,
-                message: `直播标题长度不能小于${validation.clip.title.lowerLimit}字符`
+                message: `标题长度不能小于${validation.clip.title.lowerLimit}字符`
             },
             LengthTooLong: {
                 code: 400100122,
-                message: `直播标题长度不能大于${validation.clip.title.upperLimit}字符`
+                message: `标题长度不能大于${validation.clip.title.upperLimit}字符`
             }
         },
         bv: {
             IllegalFormat: {
                 code: 400100123,
-                message: `录播视频bv号长度必须是${validation.clip.bv.limit}字符`
+                message: `视频bv号长度必须是${validation.clip.bv.limit}字符`
+            },
+            SameBv: {
+                code: 400100131,
+                message: `视频bv号已存在`
             }
         },
         datetime: {
