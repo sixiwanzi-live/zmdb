@@ -44,7 +44,7 @@ export default class ClipService {
         }
         // 检查bv是否存在
         const authorByBv = ctx.clipDao.findByBv(bv);
-        if (!authorByBv) {
+        if (authorByBv) {
             let error = error.clip.bv.SameBv;
             error.message = `${error.message}:${authorByBv.id}`;
             throw error;
