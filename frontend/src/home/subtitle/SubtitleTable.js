@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Button, Divider, Link, IconButton } from '@mui/material';
 import ForwardIcon from '@mui/icons-material/Forward';
-import { FixedSizeList } from 'react-window';
+import { VariableSizeList  } from 'react-window';
 import config from '../../config';
 import { toTime } from '../../utils';
 
@@ -19,7 +19,7 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
         const backgroundColor = match === data.subtitles[index].lineId - 1 ? '#F5F5F5' : '#FFFFFF';
         return (
             <div style={style}>
-                <Box sx={{ display:'flex', backgroundColor:{backgroundColor} }}>
+                <Box sx={{ display:'flex', flexFlow:'wrap', backgroundColor:{backgroundColor} }}>
                     <Box sx={{ flex:1 }}>{data.subtitles[index].lineId}</Box>
                     <Box sx={{ flex:3 }}>
                         <Button sx={{p:0, verticalAlign:'top', lineHeight:1.5, fontSize:'1rem', justifyContent:'left'}} 
@@ -60,11 +60,11 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
             <Box sx={{ mt:'1rem', mb:'1rem'}}>
                 <Divider />
             </Box>
-            <FixedSizeList
+            <VariableSizeList 
                 ref={listRef}
                 height={420}
                 itemCount={subtitles.length}
-                itemSize={30}
+                itemSize={index => 30 + 20 * Math.floor(subtitles[index].len / 25)}
                 width={'100%'}
                 itemData={{
                     clip: clip, 
@@ -72,7 +72,7 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
                 }}
             >
                 {Row}
-            </FixedSizeList>
+            </VariableSizeList >
         </Box>
     )
 }

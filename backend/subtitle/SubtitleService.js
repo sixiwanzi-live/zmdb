@@ -75,6 +75,7 @@ export default class SubtitleService {
         let subtitles = ctx.subtitleDao.findByClipId(clipId);
         subtitles.forEach(subtitle => {
             subtitle.markedContent = subtitle.content;
+            subtitle.len = subtitle.content.length;
         });
         if (req.query.keyword) {
             const keyword = req.query.keyword;
