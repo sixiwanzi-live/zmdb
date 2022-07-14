@@ -14,7 +14,7 @@ export default {
     clip: {
         title: {
             lowerLimit: 1,
-            upperLimit: 20
+            upperLimit: 30
         },
         bv: {
             limit: 12
