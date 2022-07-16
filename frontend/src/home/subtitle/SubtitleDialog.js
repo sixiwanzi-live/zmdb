@@ -48,9 +48,9 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
     }, [pinyinChecked, subtitles]);
 
     return (
-        <Dialog fullscreen='true' fullWidth={true} maxWidth='lg' open={status} onClose={onClose}>
+        <Dialog fullscreen='true' fullWidth={true} maxWidth='xl' open={status} onClose={onClose}>
             <DialogContent sx={{ display:'flex', height:'50rem', mt:'16px' }}>
-                <Box sx={{display:'flex', flex:60}}>
+                <Box sx={{display:'flex', flex:65}}>
                     <Box sx={{ flex:1 }}>
                         <Tabs
                             sx={{ borderRight: 1, borderColor: 'divider' }}
@@ -88,7 +88,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                         </div>
                     </Box>
                 </Box>
-                <Box sx={{flex:40, ml:'1rem'}}>
+                <Box sx={{flex:35, ml:'1rem'}}>
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>

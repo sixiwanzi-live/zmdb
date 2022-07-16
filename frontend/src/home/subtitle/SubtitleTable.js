@@ -63,7 +63,7 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
                 ref={listRef}
                 height={420}
                 itemCount={subtitles.length}
-                itemSize={index => 30 + 20 * Math.floor(subtitles[index].len / 20)}
+                itemSize={index => 30 + 20 * Math.floor(subtitles[index].len / 30)}
                 width={'100%'}
                 itemData={{
                     clip: clip, 
