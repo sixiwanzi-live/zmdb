@@ -28,20 +28,19 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
                         </Button>
                     </Box>
                     <Box sx={{ flex:1 , justifyContent:'left'}}>
-                    <IconButton 
-                        sx={{p:0}}
-                        color="primary" 
-                        aria-label="add an alarm" 
-                        component="a"
-                        target='_blank' 
-                        underline="hover" 
-                        rel ="noreferrer" 
-                        size="small"
-                        href={`${config.url.clip}/${data.clip.bv}?start_progress=${data.subtitles[index].start}`}
-                    >
-                        <ForwardIcon fontSize='inherit'/>
-                    </IconButton>
-                        {/* <Link target='_blank' underline="hover" rel ="noreferrer" href={`${config.url.clip}/${data.clip.bv}?start_progress=${data.subtitles[index].start}`}>跳</Link> */}
+                        <IconButton 
+                            sx={{p:0}}
+                            color="primary" 
+                            aria-label="redirect to bilibili" 
+                            component="a"
+                            target='_blank' 
+                            underline="hover" 
+                            rel ="noreferrer" 
+                            size="small"
+                            href={`${config.url.clip}/${data.clip.bv}?t=${data.subtitles[index].start / 1000}`}
+                        >
+                            <ForwardIcon fontSize='inherit'/>
+                        </IconButton>
                     </Box>
                     <Box sx={{ flex:9 }} dangerouslySetInnerHTML={{__html:data.subtitles[index].markedContent}} />
                 </Box>
