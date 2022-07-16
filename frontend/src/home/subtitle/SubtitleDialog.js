@@ -12,6 +12,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
     const { pinyinChecked } = React.useContext(context);
     const [match, setMatch] = React.useState(-1);
     const [selectedTab, setSelectedTab] = React.useState(0);
+    const [currentTime, setCurrentTime] = React.useState(0);
     
     const onClose = () => {
         setMatch(-1);
@@ -21,12 +22,6 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
 
     const onChange = (e, newValue) => {
         setSelectedTab(newValue);
-    }
-
-    const setCurrentTime = (currentTime) => {
-        const video = document.getElementById('my-video');
-        video.currentTime = currentTime;
-        video.play();
     }
 
     React.useEffect(() => {
@@ -56,7 +51,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
     return (
         <Dialog fullscreen='true' fullWidth={true} maxWidth='lg' open={status} onClose={onClose}>
             <DialogContent sx={{ display:'flex', height:'50rem', mt:'16px' }}>
-                <Box sx={{display:'flex', flex:65}}>
+                <Box sx={{display:'flex', flex:60}}>
                     <Box sx={{ flex:1 }}>
                         <Tabs
                             sx={{ borderRight: 1, borderColor: 'divider' }}
@@ -94,11 +89,11 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                         </div>
                     </Box>
                 </Box>
-                <Box sx={{flex:35, ml:'1rem'}}>
+                <Box sx={{flex:40, ml:'1rem'}}>
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>
-                    <video 
+                    {/* <video 
                         id='my-video' 
                         width="400" 
                         height="225" 
@@ -106,7 +101,10 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                         controls="true"
                         poster={`${config.url.file}/clips/${clip.author.organizationId}/${clip.author.id}/${clip.id}@400x225.webp`}>
                         <source src={clip.url} type="video/mp4" />
-                    </video>
+                    </video> */}
+                    <iframe width="480" height="360" src={`//player.bilibili.com/player.html?aid=813402376&bvid=BV1B34y1H7YT&cid=774525708&page=1&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true}> 
+                        
+                    </iframe>
                 </Box>       
             </DialogContent>
             <DialogActions>
