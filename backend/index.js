@@ -85,9 +85,6 @@ router.get('/organizations/:organizationId/clips', async ctx => {
 router.get('/clips', async ctx => {
     ctx.body = await ctx.clipService.find(ctx) || {};
 });
-router.get('/clips/:id/video', async ctx=> {
-    ctx.body = await ctx.clipService.fetchVideoUrl(ctx) || {};
-});
 
 /**
  * subtitles

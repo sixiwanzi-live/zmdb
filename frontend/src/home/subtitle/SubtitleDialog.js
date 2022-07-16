@@ -4,7 +4,6 @@ import Button from '@mui/material/Button'
 import { SubtitleButtonGroup } from './SubtitleButtonGroup';
 import { SubtitleTable } from './SubtitleTable';
 import { context } from '../context';
-import config from '../../config';
 
 
 export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
@@ -93,17 +92,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>
-                    {/* <video 
-                        id='my-video' 
-                        width="400" 
-                        height="225" 
-                        autoplay="true" 
-                        controls="true"
-                        poster={`${config.url.file}/clips/${clip.author.organizationId}/${clip.author.id}/${clip.id}@400x225.webp`}>
-                        <source src={clip.url} type="video/mp4" />
-                    </video> */}
-                    <iframe width="480" height="360" src={`//player.bilibili.com/player.html?aid=813402376&bvid=BV1B34y1H7YT&cid=774525708&page=1&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true}> 
-                        
+                    <iframe title={clip.title} width="480" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0"> 
                     </iframe>
                 </Box>       
             </DialogContent>

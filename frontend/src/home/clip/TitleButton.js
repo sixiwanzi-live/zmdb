@@ -16,8 +16,6 @@ export const TitleButton = ({clip}) => {
     const onClick = async () => {
         setLoading(true);
         try {
-            const res1 = await ClipApi.fetchVideo(clip.id);
-            clip.url = res1.data.url;
             const res2 = await SubtitleApi.findByClipId(clip.id, searchWord);
             let subtitles = res2.data || [];
             setSubtitles(subtitles);

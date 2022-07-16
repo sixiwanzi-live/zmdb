@@ -12,8 +12,4 @@ export default class ClipApi {
             params: { authorIds, keyword }
         });
     }
-
-    static fetchVideo = (id) => {
-        return axios.get(`${config.url.api}/clips/${id}/video`);
-    }
 }

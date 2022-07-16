@@ -211,31 +211,4 @@ export default class ClipService {
         });
         return r;
     }
-
-    fetchVideoUrl = async (ctx) => {
-        const id = parseInt(ctx.params.id);
-        const video = this.videoMap.get(id);
-        if (video && video.expiredTime > Date.now()) {
-            return {url: video.url};
-        }
-
-        let clip = ctx.clipDao.findById(id);
-        if (!clip) {
-            throw error.clip.NotFound;
-        }
-        const res1 = await axios.get(`https://api.bilibili.com/x/web-interface/view?bvid=${clip.bv}`);
-        if (!res1 || !res1.data) {
-            throw error.clip.video.FetchCidFailed;
-        }
-        const cid = res1.data.data.cid;
-        console.log(`cid:${cid}`);
-        const res2 = await axios.get(`http://api.bilibili.com/x/player/playurl?bvid=${clip.bv}&cid=${cid}&platform=html5&qn=16`);
-        if (!res2 || !res2.data) {
-            throw error.clip.video.FetchUrlFailed;
-        }
-        const url = res2.data.data.durl[0].url;
-        console.log(`url:${url}`);
-        this.videoMap.set(id, {url: url, expiredTime: Date.now() + 60 * 60 * 1000});
-        return {url};
-    }
 }
