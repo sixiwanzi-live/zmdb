@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Box, Dialog, DialogTitle, DialogContent, DialogActions, Tabs, Tab } from '@mui/material';
-import Button from '@mui/material/Button'
+import { Box, Dialog, Button, DialogTitle, DialogContent, DialogActions, Tabs, Tab, TextField } from '@mui/material';
 import { SubtitleButtonGroup } from './SubtitleButtonGroup';
 import { SubtitleTable } from './SubtitleTable';
+import { SegmentControl } from './SegmentControl';
 import { context } from '../context';
 
 
@@ -92,8 +92,12 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>
-                    <iframe title={clip.title} width="480" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0"> 
+                    <Box sx>
+                    <iframe title={clip.title} width="100%" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0"> 
                     </iframe>
+                    </Box>
+                    
+                    <SegmentControl bv={clip.bv} startTime={'1200000'} endTime={'1260000'}/>
                 </Box>       
             </DialogContent>
             <DialogActions>
