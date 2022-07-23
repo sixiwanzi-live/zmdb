@@ -51,7 +51,7 @@ export default class ClipService {
         if (authorByBv) {
             throw {
                 code: error.clip.bv.SameBv.code,
-                message: `${error.clip.bv.SameBv.message}:${authorByBv}`
+                message: `${error.clip.bv.SameBv.message}:${authorByBv.id}`
             };
         }
         clip.bv = bv;
