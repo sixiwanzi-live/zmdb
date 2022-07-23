@@ -83,7 +83,11 @@ router.get('/organizations/:organizationId/clips', async ctx => {
     ctx.body = await ctx.clipService.findByOrganizationId(ctx) || {};
 });
 router.get('/clips', async ctx => {
-    ctx.body = await ctx.clipService.find(ctx) || {};
+    if (ctx.request.query.bv) {
+        ctx.body = await ctx.clipService.findByBv(ctx) || {};
+    } else {
+        ctx.body = await ctx.clipService.find(ctx) || {};
+    }
 });
 
 /**

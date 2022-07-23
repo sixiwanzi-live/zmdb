@@ -1,15 +1,10 @@
 import { pinyin } from 'pinyin-pro';
-import axios from 'axios';
 import error from "../error.js";
 import validation from "../validation.js";
 import config from "../config.js";
 import { toExtension } from '../utils.js';
 
 export default class ClipService {
-
-    constructor() {
-        this.videoMap = new Map();
-    }
 
     /**
      * @param {authorId} 作者id 
@@ -170,6 +165,10 @@ export default class ClipService {
     findByOrganizationId = (ctx) => {
         const organizationId = parseInt(ctx.params.organizationId);
         return ctx.clipDao.findByOrganizationId(organizationId);
+    }
+
+    findByBv = (ctx) => {
+        return ctx.clipDao.findByBv(ctx.request.query.bv);
     }
 
     find = (ctx) => {
