@@ -20,14 +20,14 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
         return (
             <div style={style}>
                 <Box sx={{ display:'flex', flexFlow:'wrap', backgroundColor:{backgroundColor} }}>
-                    <Box sx={{ flex:1 }}>{data.subtitles[index].lineId}</Box>
-                    <Box sx={{ flex:3 }}>
-                        <Button sx={{p:0, verticalAlign:'top', lineHeight:1.5, fontSize:'1rem', justifyContent:'left'}} 
+                    <Box sx={{ flex:1, textAlign:'center' }}>{data.subtitles[index].lineId}</Box>
+                    <Box sx={{ flex:2, textAlign:'center' }}>
+                        <Button sx={{p:0, lineHeight:1.5, fontSize:'1rem'}} 
                                 onClick={() => {setCurrentTime(data.subtitles[index].start / 1000)}}>
                             {toTime(data.subtitles[index].start)}
                         </Button>
                     </Box>
-                    <Box sx={{ flex:1 , justifyContent:'left'}}>
+                    <Box sx={{ flex:1 , textAlign:'center', justifyContent:'center'}}>
                         <IconButton 
                             sx={{p:0}}
                             color="primary" 
@@ -51,9 +51,9 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
     return (
         <Box sx={{ width:'100%'}}>
             <Box sx={{ display:'flex' }}>
-                <Box sx={{ flex:1 }}>序号</Box>
-                <Box sx={{ flex:3 }}>时间</Box>
-                <Box sx={{ flex:1 }}>跳转</Box>
+                <Box sx={{ flex:1, textAlign:'center' }}>序号</Box>
+                <Box sx={{ flex:2, textAlign:'center' }}>时间</Box>
+                <Box sx={{ flex:1, textAlign:'center' }}>跳转</Box>
                 <Box sx={{ flex:9 }}>字幕</Box>
             </Box>
             <Box sx={{ mt:'1rem', mb:'1rem'}}>
