@@ -81,7 +81,7 @@ export default class ClipService {
      * @param {title} 作品标题
      * @param {bv} B站视频号，长度为12字符
      * @param {datetime} 时间日期字符串，格式为YYYY-MM-DD HH:MM:SS
-     * @param {filename} 头像缩略图
+     * @param {filename} 封面缩略图
      */
     update = async (ctx) => {
         const id = parseInt(ctx.params.id);
@@ -169,6 +169,11 @@ export default class ClipService {
 
     findByBv = (ctx) => {
         return ctx.clipDao.findByBv(ctx.request.query.bv);
+    }
+
+    findLatestByAuthorId = (ctx) => {
+        const authorId = parseInt(ctx.params.authorId);
+        return ctx.clipDao.findLatestByAuthorId(authorId);
     }
 
     find = (ctx) => {

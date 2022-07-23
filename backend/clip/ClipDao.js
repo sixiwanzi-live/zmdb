@@ -60,6 +60,12 @@ export default class ClipDao {
         return stmt.get(bv);
     }
 
+    findLatestByAuthorId = (authorId) => {
+        const sql = 'SELECT * FROM clip WHERE authorId=? ORDER BY datetime DESC LIMIT 1';
+        const stmt = this.db.prepare(sql);
+        return stmt.get(authorId);
+    }
+
     findByOrganizationId = (organizationId) => {
         const sql = 'SELECT ' + 
                         'clip.id as clip_id, ' +

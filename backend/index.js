@@ -82,6 +82,9 @@ router.put('/clips/:id', auth, async ctx => {
 router.get('/organizations/:organizationId/clips', async ctx => {
     ctx.body = await ctx.clipService.findByOrganizationId(ctx) || {};
 });
+router.get('/authors/:authorId/latest-clip', async ctx => {
+    ctx.body = await ctx.clipService.findLatestByAuthorId(ctx) || {};
+});
 router.get('/clips', async ctx => {
     if (ctx.request.query.bv) {
         ctx.body = await ctx.clipService.findByBv(ctx) || {};
