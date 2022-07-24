@@ -8,15 +8,19 @@ import { context } from '../context';
 
 export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
 
-    const { pinyinChecked } = React.useContext(context);
-    const [match, setMatch] = React.useState(-1);
+    const { pinyinChecked }             = React.useContext(context);
+    const [match, setMatch]             = React.useState(-1);
     const [selectedTab, setSelectedTab] = React.useState(0);
     const [currentTime, setCurrentTime] = React.useState(0);
+    const [startTime, setStartTime]     = React.useState(0);
+    const [endTime, setEndTime]         = React.useState(0);
     
     const onClose = () => {
         setMatch(-1);
         setStatus(false);
         setSelectedTab(0);
+        setStartTime(0);
+        setEndTime(0);
     }
 
     const onChange = (e, newValue) => {
@@ -69,7 +73,14 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                                 selectedTab === 0 &&
                                 <Box>
                                     {match >= 0 && <SubtitleButtonGroup subtitles={subtitles} match={match} setMatch={setMatch} />}
-                                    <SubtitleTable match={match} clip={clip} subtitles={subtitles} setCurrentTime={setCurrentTime} /> 
+                                    <SubtitleTable 
+                                        match={match} 
+                                        clip={clip} 
+                                        subtitles={subtitles} 
+                                        setCurrentTime={setCurrentTime}
+                                        setStartTime={setStartTime}
+                                        setEndTime={setEndTime}
+                                    /> 
                                 </Box>
                             }
                         </div>
@@ -82,6 +93,8 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                                         clip={clip} 
                                         subtitles={subtitles.filter(subtitle => pinyinChecked ? subtitle.matchMode === 1 || subtitle.matchMode === 2 : subtitle.matchMode === 1)} 
                                         setCurrentTime={setCurrentTime} 
+                                        setStartTime={setStartTime}
+                                        setEndTime={setEndTime}
                                     /> 
                                 </Box>
                             }
@@ -92,12 +105,9 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                     <DialogTitle>
                         {clip.title}
                     </DialogTitle>
-                    <Box sx>
                     <iframe title={clip.title} width="100%" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0"> 
                     </iframe>
-                    </Box>
-                    
-                    <SegmentControl bv={clip.bv} startTime={'1200000'} endTime={'1260000'}/>
+                    <SegmentControl clip={clip} startTime={startTime} endTime={endTime}/>
                 </Box>       
             </DialogContent>
             <DialogActions>

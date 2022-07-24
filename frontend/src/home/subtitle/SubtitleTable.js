@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Box, Button, Divider, IconButton } from '@mui/material';
+import { Box, Button, Divider, IconButton, Tooltip } from '@mui/material';
 import ForwardIcon from '@mui/icons-material/Forward';
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
 import { VariableSizeList  } from 'react-window';
 import config from '../../config';
 import { toTime } from '../../utils';
 
-export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
+export const SubtitleTable = ({match, clip, subtitles, setCurrentTime, setStartTime, setEndTime}) => {
 
     const listRef = React.useRef();
 
@@ -20,27 +22,54 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
         return (
             <div style={style}>
                 <Box sx={{ display:'flex', flexFlow:'wrap', backgroundColor:{backgroundColor} }}>
-                    <Box sx={{ flex:1, textAlign:'center' }}>{data.subtitles[index].lineId}</Box>
-                    <Box sx={{ flex:2, textAlign:'center' }}>
-                        <Button sx={{p:0, lineHeight:1.5, fontSize:'1rem'}} 
-                                onClick={() => {setCurrentTime(data.subtitles[index].start / 1000)}}>
+                    <Box sx={{ flex:1, textAlign:'center' }}>
+                        {data.subtitles[index].lineId}
+                    </Box>
+                    <Box sx={{ flex:1.2 , display:'flex', justifyContent:'space-between'}}>
+                        <Tooltip title="设置切片起始时间">
+                            <IconButton 
+                                sx={{p:0}}
+                                color="primary" 
+                                aria-label="set start time" 
+                                size="small"
+                                onClick={(e) => setStartTime(data.subtitles[index].start)}
+                            >
+                                <PlayCircleFilledWhiteIcon fontSize='inherit'/>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="设置切片终止时间">
+                            <IconButton 
+                                sx={{p:0}}
+                                color="primary" 
+                                aria-label="set end time" 
+                                size="small"
+                                onClick={(e) => setEndTime(data.subtitles[index].start)}
+                            >
+                                <StopCircleIcon fontSize='inherit'/>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="跳转到B站">
+                            <IconButton 
+                                sx={{p:0}}
+                                color="primary" 
+                                aria-label="redirect to bilibili" 
+                                component="a"
+                                target='_blank' 
+                                underline="hover" 
+                                rel ="noreferrer" 
+                                size="small"
+                                href={`${config.url.clip}/${data.clip.bv}?t=${data.subtitles[index].start / 1000}`}
+                            >
+                                <ForwardIcon fontSize='inherit'/>
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                    <Box sx={{ display:'flex', flex:2, alignContent:'center' }}>
+                        <Button sx={{p:0, lineHeight:1.5, fontSize:'1rem', width:'100%'}} 
+                            onClick={() => {setCurrentTime(data.subtitles[index].start / 1000)}}
+                        >
                             {toTime(data.subtitles[index].start)}
                         </Button>
-                    </Box>
-                    <Box sx={{ flex:1 , textAlign:'center', justifyContent:'center'}}>
-                        <IconButton 
-                            sx={{p:0}}
-                            color="primary" 
-                            aria-label="redirect to bilibili" 
-                            component="a"
-                            target='_blank' 
-                            underline="hover" 
-                            rel ="noreferrer" 
-                            size="small"
-                            href={`${config.url.clip}/${data.clip.bv}?t=${data.subtitles[index].start / 1000}`}
-                        >
-                            <ForwardIcon fontSize='inherit'/>
-                        </IconButton>
                     </Box>
                     <Box sx={{ flex:9 }} dangerouslySetInnerHTML={{__html:data.subtitles[index].markedContent}} />
                 </Box>
@@ -52,8 +81,8 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime}) => {
         <Box sx={{ width:'100%'}}>
             <Box sx={{ display:'flex' }}>
                 <Box sx={{ flex:1, textAlign:'center' }}>序号</Box>
+                <Box sx={{ flex:1.2, textAlign:'center' }}>操作</Box>
                 <Box sx={{ flex:2, textAlign:'center' }}>时间</Box>
-                <Box sx={{ flex:1, textAlign:'center' }}>跳转</Box>
                 <Box sx={{ flex:9 }}>字幕</Box>
             </Box>
             <Box sx={{ mt:'1rem', mb:'1rem'}}>

@@ -12,4 +12,8 @@ export default class ClipApi {
             params: { authorIds, keyword }
         });
     }
+
+    static fetchSegment = (clipId, startTime, endTime) => {
+        return axios.get(`${config.url.api}/clips/${clipId}/segment?startTime=${startTime}&endTime=${endTime}`);
+    }
 }
