@@ -53,7 +53,10 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
 
     return (
         <Dialog fullscreen='true' fullWidth={true} maxWidth='xl' open={status} onClose={onClose}>
-            <DialogContent sx={{ display:'flex', height:'50rem', mt:'16px' }}>
+            <DialogTitle>
+                {clip.title}
+            </DialogTitle>
+            <DialogContent sx={{ display:'flex', height:'50rem', mt:'1px' }}>
                 <Box sx={{display:'flex', flex:65}}>
                     <Box sx={{ flex:1 }}>
                         <Tabs
@@ -102,10 +105,7 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                     </Box>
                 </Box>
                 <Box sx={{flex:35, ml:'1rem'}}>
-                    <DialogTitle>
-                        {clip.title}
-                    </DialogTitle>
-                    <iframe title={clip.title} width="100%" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0"> 
+                    <iframe title={clip.title} width="100%" height="360" src={`//player.bilibili.com/player.html?bvid=${clip.bv}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0" allowfullscreen="true"> 
                     </iframe>
                     <SegmentControl clip={clip} startTime={startTime} endTime={endTime}/>
                 </Box>       
