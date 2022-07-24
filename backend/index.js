@@ -92,6 +92,9 @@ router.get('/clips', async ctx => {
         ctx.body = await ctx.clipService.find(ctx) || {};
     }
 });
+router.get('/clips/:clipId/segment', async ctx => {
+    ctx.body = await ctx.clipService.fetchSegment(ctx) || {};
+});
 
 /**
  * subtitles

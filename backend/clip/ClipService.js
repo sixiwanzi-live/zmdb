@@ -1,4 +1,5 @@
 import { pinyin } from 'pinyin-pro';
+import axios from 'axios';
 import error from "../error.js";
 import validation from "../validation.js";
 import config from "../config.js";
@@ -215,5 +216,25 @@ export default class ClipService {
             return b.datetime.localeCompare(a.datetime);
         });
         return r;
+    }
+
+    fetchSegment = async (ctx) => {
+        const clipId = parseInt(ctx.params.clipId);
+        const clip = ctx.clipDao.findById(clipId);
+        if (!clip) {
+            throw error.clip.NotFound;
+        }
+        const startTime = parseInt(ctx.request.query.startTime);
+        const endTime   = parseInt(ctx.request.query.endTime);
+        try {
+            const res = await axios.get(`${config.disk.url}/segments?bv=${clip.bv}&startTime=${startTime}&endTime=${endTime}`, {
+                timeout: 600000
+            });
+            console.log(res.data);
+            return res.data;
+        } catch (ex) {
+            console.log(ex);
+            throw ex.response.data;
+        }
     }
 }
