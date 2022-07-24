@@ -30,15 +30,16 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             const res1 = await ClipApi.fetchSegment(clip.id, startTime, endTime);
             const filename = res1.data.filename;
             const url = `${config.url.segment}/${filename}`;
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            window.open(url, filename);
+            // const a = document.createElement('a');
+            // a.style.display = 'none';
+            // a.target = '_blank';
+            // a.rel = 'noopener';
+            // a.href = url;
+            // a.download = filename;
+            // document.body.appendChild(a);
+            // a.click();
+            // document.body.removeChild(a);
         } catch (ex) {
             console.log(ex);
             onMessage({
