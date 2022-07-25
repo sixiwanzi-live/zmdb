@@ -30,19 +30,20 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             const res1 = await ClipApi.fetchSegment(clip.id, startTime, endTime);
             const filename = res1.data.filename;
             const url = `${config.url.segment}/${filename}`;
-            setTimeout(async () => {
-                console.log('timeout');
-                const res2 = await fetch(url);
-                const blob = await res2.blob();
-                const a = document.createElement("a");
-                const downloadUrl = window.URL.createObjectURL(blob);
-                a.download = filename;
-                a.href = downloadUrl;
-                a.click();
-                window.URL.revokeObjectURL(downloadUrl);
-                a.remove();
-                console.log('end timeout');
-            }, 3000);
+            await new Promise((res, rej) => {
+                setTimeout(async () => {
+                    const res2 = await fetch(url);
+                    const blob = await res2.blob();
+                    const a = document.createElement("a");
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    a.download = filename;
+                    a.href = downloadUrl;
+                    a.click();
+                    window.URL.revokeObjectURL(downloadUrl);
+                    a.remove();
+                    res();
+                }, 3000);
+            });
         } catch (ex) {
             console.log(ex);
             if (ex.response && ex.response.data) {
