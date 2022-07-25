@@ -29,25 +29,19 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             });
             const res1 = await ClipApi.fetchSegment(clip.id, startTime, endTime);
             const filename = res1.data.filename;
-            const url = `${config.url.segment}/${filename}`;
-            window.open(url, filename);
-            // const a = document.createElement('a');
-            // a.style.display = 'none';
-            // a.target = '_blank';
-            // a.rel = 'noopener';
-            // a.href = url;
-            // a.download = filename;
-            // document.body.appendChild(a);
-            // a.click();
-            // document.body.removeChild(a);
+            let win = window.open('', filename);
+            win.document.write(`<div style="display:flex; align-items:center; justify-content:center; "><video src="${config.url.segment}/${filename}" autoplay controls width="60%" height="60%"></video></div>`);
+            win.focus();
         } catch (ex) {
             console.log(ex);
             onMessage({
                 type: 'error',
-                content: `code:${ex.response.data.code},message:${ex.response.data.message}`
+                content: '内部错误'
             });
+        } finally {
+            setSegmentDisabled(false);
         }
-        setSegmentDisabled(false);
+        
     }
 
     return (
