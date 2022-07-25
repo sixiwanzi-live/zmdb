@@ -34,10 +34,17 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             win.focus();
         } catch (ex) {
             console.log(ex);
-            onMessage({
-                type: 'error',
-                content: '内部错误'
-            });
+            if (ex.response && ex.response.data) {
+                onMessage({
+                    type: 'error',
+                    content: `${ex.response.data.code}:${ex.response.data.message}`
+                });
+            } else {
+                onMessage({
+                    type: 'error',
+                    content: '内部错误'
+                });
+            }
         } finally {
             setSegmentDisabled(false);
         }
