@@ -16,7 +16,7 @@ export const MessageSnackbar = () => {
     return (
         <Snackbar 
             open={messageStatus} 
-            autoHideDuration={3000} 
+            autoHideDuration={2000} 
             onClose={onClose}
             anchorOrigin={{ vertical:'top', horizontal:'right' }}>
             <Alert onClose={onClose} severity={message.type} sx={{ width: '100%' }}>
