@@ -31,6 +31,7 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             const filename = res1.data.filename;
             const url = `${config.url.segment}/${filename}`;
             setTimeout(3000, async () => {
+                console.log('timeout');
                 const res2 = await fetch(url);
                 const blob = await res2.blob();
                 const a = document.createElement("a");
@@ -40,6 +41,7 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
                 a.click();
                 window.URL.revokeObjectURL(downloadUrl);
                 a.remove();
+                console.log('end timeout');
             });
         } catch (ex) {
             console.log(ex);
