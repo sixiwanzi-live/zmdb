@@ -43,7 +43,7 @@ export const SubtitleTable = ({match, clip, subtitles, setCurrentTime, setStartT
                                 color="primary" 
                                 aria-label="set end time" 
                                 size="small"
-                                onClick={(e) => setEndTime(data.subtitles[index].start)}
+                                onClick={(e) => setEndTime(data.subtitles[index].end)}
                             >
                                 <StopCircleIcon fontSize='inherit'/>
                             </IconButton>
