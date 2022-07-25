@@ -32,16 +32,24 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
             const url = `${config.url.segment}/${filename}`;
             await new Promise((res, rej) => {
                 setTimeout(async () => {
-                    const res2 = await fetch(url);
-                    const blob = await res2.blob();
-                    const a = document.createElement("a");
-                    const downloadUrl = window.URL.createObjectURL(blob);
-                    a.download = filename;
-                    a.href = downloadUrl;
-                    a.click();
-                    window.URL.revokeObjectURL(downloadUrl);
-                    a.remove();
-                    res();
+                    try {
+                        onMessage({
+                            type:'success',
+                            content: `切片已生成，下载中:${clip.title} ${toTime(startTime)} -> ${toTime(endTime)}`
+                        });
+                        const res2 = await fetch(url);
+                        const blob = await res2.blob();
+                        const a = document.createElement("a");
+                        const downloadUrl = window.URL.createObjectURL(blob);
+                        a.download = filename;
+                        a.href = downloadUrl;
+                        a.click();
+                        window.URL.revokeObjectURL(downloadUrl);
+                        a.remove();
+                        res();
+                    } catch (ex) {
+                        rej(ex);
+                    }
                 }, 3000);
             });
         } catch (ex) {
