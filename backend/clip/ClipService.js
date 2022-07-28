@@ -220,14 +220,17 @@ export default class ClipService {
 
     fetchSegment = async (ctx) => {
         const clipId = parseInt(ctx.params.clipId);
+        const audio = ctx.request.query.audio;
         const clip = ctx.clipDao.findById(clipId);
+        console.log(`audio:${audio}`);
         if (!clip) {
             throw error.clip.NotFound;
         }
         const startTime = parseInt(ctx.request.query.startTime);
         const endTime   = parseInt(ctx.request.query.endTime);
         try {
-            const res = await axios.get(`${config.disk.url}/segments?bv=${clip.bv}&startTime=${startTime}&endTime=${endTime}`, {
+            console.log(audio);
+            const res = await axios.get(`${config.disk.url}/segments?bv=${clip.bv}&startTime=${startTime}&endTime=${endTime}&audio=${audio}`, {
                 timeout: 600000
             });
             console.log(res.data);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, FormControlLabel, Checkbox } from '@mui/material';
 import config from '../../config';
 import { context as globalContext } from '../../context';
 import { context } from '../context';
@@ -11,7 +11,7 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
 
     const { onMessage } = React.useContext(globalContext);
     const { segmentDisabled, setSegmentDisabled } = React.useContext(context);
-
+    const [audioChecked, setAudioChecked] = React.useState(false);
 
     const onClick = async (e) => {
         if (startTime >= endTime) {
@@ -27,7 +27,7 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
                 type:'success',
                 content: `切片处理中:${clip.title} ${toTime(startTime)} -> ${toTime(endTime)}`
             });
-            const res1 = await ClipApi.fetchSegment(clip.id, startTime, endTime);
+            const res1 = await ClipApi.fetchSegment(clip.id, startTime, endTime, audioChecked);
             const filename = res1.data.filename;
             const url = `${config.url.segment}/${filename}`;
             await new Promise((res, rej) => {
@@ -73,14 +73,25 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
 
     return (
         <React.Fragment>
-            <Box sx={{display:'flex'}}>
-                <Box sx={{flex:1, pr:'1rem', pl:'1rem'}}>
+            <Box sx={{display:'flex', mt:'2rem'}}>
+                <Box sx={{flex:1.2, pr:'1rem'}}>
                     <TextField disabled variant="standard" size="small" label="起始时间" value={toTime(startTime)}/>
                 </Box>
-                <Box sx={{flex:1, pr:'1rem', pl:'1rem'}}>
+                <Box sx={{flex:1.2, pr:'0.5rem', pl:'0.5rem'}}>
                     <TextField disabled variant="standard" size="small" label="终止时间" value={toTime(endTime)}/>
                 </Box>
-                <Box sx={{flex:1, pr:'1rem', pl:'1rem'}}>
+                <Box sx={{flex:1, pr:'0.5rem', pl:'0.5rem'}}>
+                    <FormControlLabel 
+                        label="仅音频" 
+                        control={
+                            <Checkbox 
+                                checked={audioChecked}
+                                onChange={() => {setAudioChecked(!audioChecked);}}
+                            />
+                        } 
+                    />
+                </Box>
+                <Box sx={{flex:1, pl:'0.5rem'}}>
                     <Button sx={{width:'100%', height:'100%'}} size="small" variant="contained" disabled={segmentDisabled} onClick={onClick}>生成切片</Button>
                 </Box>
             </Box>

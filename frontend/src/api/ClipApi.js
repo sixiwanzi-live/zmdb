@@ -13,7 +13,8 @@ export default class ClipApi {
         });
     }
 
-    static fetchSegment = (clipId, startTime, endTime) => {
-        return axios.get(`${config.url.api}/clips/${clipId}/segment?startTime=${startTime}&endTime=${endTime}`);
+    static fetchSegment = (clipId, startTime, endTime, audio) => {
+        console.log(`${config.url.api}/clips/${clipId}/segment?startTime=${startTime}&endTime=${endTime}&audio=${audio}`);
+        return axios.get(`${config.url.api}/clips/${clipId}/segment?startTime=${startTime}&endTime=${endTime}&audio=${audio}`);
     }
 }
