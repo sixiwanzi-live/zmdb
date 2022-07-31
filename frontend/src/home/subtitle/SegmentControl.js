@@ -50,7 +50,7 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
                     } catch (ex) {
                         rej(ex);
                     }
-                }, 3000);
+                }, 1000);
             });
         } catch (ex) {
             console.log(ex);
