@@ -10,7 +10,7 @@ import ClipApi from '../../api/ClipApi';
 export const SegmentControl = ({clip, startTime, endTime}) => {
 
     const { onMessage } = React.useContext(globalContext);
-    const { segmentDisabled, setSegmentDisabled } = React.useContext(context);
+    const { segmentDisabled, setSegmentDisabled, downloadProgress, setDownloadProgress, contentLength, setContentLength } = React.useContext(context);
     const [audioChecked, setAudioChecked] = React.useState(false);
 
     const onClick = async (e) => {
@@ -38,7 +38,22 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
                             content: `切片已生成，下载中:${clip.title} ${toTime(startTime)} -> ${toTime(endTime)}`
                         });
                         const res2 = await fetch(url);
-                        const blob = await res2.blob();
+                        const reader = res2.body.getReader();
+                        setContentLength(res2.headers.get('Content-Length'));
+                        setDownloadProgress(0);
+                        let chunks = [];
+                        while (true) {
+                            const { done, value } = await reader.read();
+                            if (done) {
+                                setDownloadProgress(-1);
+                                setContentLength(-1);
+                                break;
+                            }
+                            chunks.push(value);
+                            setDownloadProgress(prev => prev + value.length);
+                        }
+
+                        const blob = new Blob(chunks);
                         const a = document.createElement("a");
                         const downloadUrl = window.URL.createObjectURL(blob);
                         a.download = filename;
@@ -68,7 +83,6 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
         } finally {
             setSegmentDisabled(false);
         }
-        
     }
 
     return (
@@ -92,7 +106,17 @@ export const SegmentControl = ({clip, startTime, endTime}) => {
                     />
                 </Box>
                 <Box sx={{flex:1, pl:'0.5rem'}}>
-                    <Button sx={{width:'100%', height:'100%'}} size="small" variant="contained" disabled={segmentDisabled} onClick={onClick}>生成切片</Button>
+                    <Button 
+                        sx={{width:'100%', height:'100%'}} 
+                        size="small" 
+                        variant="contained" 
+                        disabled={segmentDisabled} 
+                        onClick={onClick}
+                    >
+                        {
+                            downloadProgress === -1 ? '生成切片' : `进度(${Math.round(100 * downloadProgress / contentLength)}%)`
+                        }
+                </Button>
                 </Box>
             </Box>
         </React.Fragment>

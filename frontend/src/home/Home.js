@@ -18,6 +18,8 @@ export const Home = () => {
     const [clips, setClips] = React.useState([]);
     const [pinyinChecked, setPinyinChecked] = React.useState(true);
     const [segmentDisabled, setSegmentDisabled] = React.useState(false);
+    const [downloadProgress, setDownloadProgress] = React.useState(-1);
+    const [contentLength, setContentLength] = React.useState(-1);
 
     const { setLoading, onMessage } = React.useContext(globalContext);
 
@@ -89,7 +91,11 @@ export const Home = () => {
         pinyinChecked,
         setPinyinChecked,
         segmentDisabled,
-        setSegmentDisabled
+        setSegmentDisabled,
+        downloadProgress,
+        setDownloadProgress,
+        contentLength,
+        setContentLength
     };
 
     return (
