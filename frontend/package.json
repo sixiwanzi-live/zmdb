@@ -1,0 +1,47 @@
+{
+    "name": "frontend",
+    "version": "6.1.1",
+    "private": true,
+    "dependencies": {
+        "@emotion/react": "latest",
+        "@emotion/styled": "latest",
+        "@mui/icons-material": "latest",
+        "@mui/material": "latest",
+        "@mui/x-data-grid": "latest",
+        "artplayer": "^4.5.8",
+        "flv.js": "^1.6.2",
+        "hls.js": "^1.2.4",
+        "install": "^0.13",
+        "npm": "^8.9.0",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "latest",
+        "react-window": "^1.8.7",
+        "web-vitals": "latest"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
