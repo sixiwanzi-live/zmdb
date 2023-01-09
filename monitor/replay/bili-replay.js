@@ -61,6 +61,7 @@ const archives = [
                     id: clip.id,
                     bv: video.bvid
                 };
+                console.log(JSON.stringify(updatedClip));
                 console.log(`将更新clip:${updatedClip.id},${updatedClip.bv}`);
                 await ZimuApi.updateClip(updatedClip);
                 await PushApi.push(`更新author(${archive.authorId})的clip(${clip.id}),bv号为${video.bvid}`, '');

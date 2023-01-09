@@ -8,7 +8,8 @@ export default class ZimuApi {
         const res = await fetch(url, {
             method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${config.zimu.auth}`
+                'Authorization': `Bearer ${config.zimu.auth}`,
+                'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(clip)
         });
