@@ -22,7 +22,7 @@ const archives = [
     {
         // 扇宝
         authorId: 30,
-        url: 'https://api.bilibili.com/x/polymer/space/seasons_archives_list?mid=1682965468&season_id=983010&sort_reverse=false&page_num=1&page_size=1',
+        url: 'https://api.bilibili.com/x/polymer/space/seasons_archives_list?mid=1682965468&season_id=983010&sort_reverse=true&page_num=1&page_size=1',
     },
     {
         // 安可
