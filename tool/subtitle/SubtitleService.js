@@ -28,6 +28,33 @@ export default class SubtitleService {
         const clip = await ZimuApi.findClipById(clipId);
         if (clip.type === 1) {
             // B站源
+            const bv = clip.playUrl.substring(clip.playUrl.indexOf("BV"), clip.playUrl.length);
+            const info = await BiliApi.fetchVideoInfo(bv);
+            console.log(info);
+            // 获取智能字幕信息
+            if (info.data.subtitle.list.length > 0) {
+                const subtitleUrl = info.data.subtitle.list[0].subtitle_url;
+                const subtitleRes = await fetch(subtitleUrl);
+                const subtitleJson = await subtitleRes.json();
+                // json格式字幕转换成srt格式
+                let srt = '';
+                const subtitles = subtitleJson.body;
+                for (let k = 0; k < subtitles.length; ++k) {
+                    const subtitle = subtitles[k];
+                    const lineId = subtitle.sid;
+                    const startTime = fromMilliseconds(subtitle.from * 1000);
+                    const endTime = fromMilliseconds(subtitle.to * 1000);
+                    const content = subtitle.content;
+                    const line = `${lineId}\r\n${startTime} --> ${endTime}\r\n${content}\r\n\r\n`;
+                    srt += line;
+                }
+                if (srt.length > 0) {
+                    return srt;
+                }
+            }
+            // 如果获取不到智能字幕信息，则需要自己进行识别
+            const cid = info.data.cid;
+            downloadUrl = await BiliApi.fetchHtml5StreamUrl(bv, cid);
         } else if (clip.type === 2 || clip.type === 3) {
             // 录播站源或者本地源
             downloadUrl = `https://${clip.playUrl}`;
@@ -38,6 +65,7 @@ export default class SubtitleService {
                 message: `Clip(${clip.id},${clip.title})未找到视频地址`
             }
         }
+        ctx.logger.info(`downloadUrl:${downloadUrl}`);
         const filename = `${clip.id}.m4a`;
         const filepath = `${config.web.tmpDir}/audio/${filename}`;
         await toAudio(downloadUrl, filepath);
