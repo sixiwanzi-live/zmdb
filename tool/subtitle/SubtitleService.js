@@ -101,11 +101,12 @@ export default class SubtitleService {
             await new Promise((res, rej) => {
                 setTimeout(() => {
                     res();
-                }, 30000)
+                }, 300000)
             });
             const queryJson = await BiliApi.queryAsr(taskId);
             if (queryJson.code !== 0) {
-                throw queryJson;
+                ctx.logger.info(queryJson);
+                continue;
             }
             if (queryJson.data.state === 0) {
                 ctx.logger.info("未开始");
