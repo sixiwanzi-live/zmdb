@@ -95,6 +95,12 @@ export default class SubtitleService {
             ctx.logger.info(`开始上传分片${startRange}-${endRange}`);
             const uploadRes = await fetch(uploadUrls[i], {
                 method: "PUT",
+                headers: {
+                    "accept": "*/*",
+                    "accept-encoding": "gzip, deflate",
+                    "accept-language": "zh-Hans-CN;q=1",
+                    "user-agent": config.bili.asr.userAgent
+                },
                 body: audio.subarray(startRange, endRange)
             });
             if (!uploadRes.ok) {
@@ -129,7 +135,7 @@ export default class SubtitleService {
             await new Promise((res, rej) => {
                 setTimeout(() => {
                     res();
-                }, 300000)
+                }, 30000)
             });
             const queryJson = await BiliApi.queryAsr(taskId);
             if (queryJson.code !== 0) {
@@ -158,6 +164,7 @@ export default class SubtitleService {
                 break;
             }
         }
+        await BiliApi.deleteAsr(taskId);
         return srt;
     }
 }
