@@ -1,0 +1,25 @@
+{
+    "name": "redirect",
+    "version": "7.0.0",
+    "description": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@koa/cors": "^3.3.0",
+        "@koa/router": "^10.1.1",
+        "cache": "^3.0.0",
+        "koa": "^2.13.4",
+        "koa-body": "^5.0.0",
+        "koa-logger": "^3.2.1",
+        "moment": "^2.29.3",
+        "node-fetch": "^3.2.10",
+        "pino": "^8.7.0",
+        "pino-pretty": "^9.1.1",
+        "pinyin-pro": "^3.11.0"
+    }
+}
