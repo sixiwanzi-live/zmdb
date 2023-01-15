@@ -29,6 +29,11 @@ const archives = [
         authorId: 31,
         url: 'https://api.bilibili.com/x/series/archives?mid=1375400985&series_id=2924566&only_normal=true&sort=desc&pn=1&ps=1',
     },
+    {
+        // 白小蛮不讲理
+        authorId: 34,
+        url: 'https://api.bilibili.com/x/series/archives?mid=1960682407&series_id=2885365&only_normal=true&sort=desc&pn=1&ps=1',
+    },
 ];
 
 (async () => {
