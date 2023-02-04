@@ -4,6 +4,7 @@ import validation from "../validation.js";
 import config from '../config.js';
 import { checkTimeFormat, toMicroseconds } from '../utils.js';
 import DiskApi from '../api/DiskApi.js';
+import SegmentApi from '../api/SegmentApi.js';
 
 /**
  * type 0:未解析，1:B站视频，2:录播站视频，3:本地源, 4:直播中
@@ -283,6 +284,8 @@ export default class ClipService {
             throw error.clip.endTime.IllegalFormat;
         }
         
+        const clip = ctx.clipDao.findById(clipId);
+        
         const st = toMicroseconds(startTime);
         const et = toMicroseconds(endTime);
         if (et - st > validation.segment.interval.upperLimit) {
@@ -291,8 +294,14 @@ export default class ClipService {
         if (et - st < validation.segment.interval.lowerLimit) {
             throw error.segment.IntervalTooShort;
         }
-        const r = await DiskApi.segment(clipId, startTime, endTime, audio);
-        ctx.logger.info(r);
-        return r;
+        if (clip.type === 3 || clip.type === 4) {
+            const r = await SegmentApi.segment(clipId, startTime, endTime, audio);
+            ctx.logger.info(r);
+            return r;
+        } else {
+            const r = await DiskApi.segment(clipId, startTime, endTime, audio);
+            ctx.logger.info(r);
+            return r;
+        }
     }
 }

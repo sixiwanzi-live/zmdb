@@ -66,7 +66,7 @@ export default class ClipDao {
     }
 
     findLatestByAuthorId = (authorId) => {
-        const sql = 'SELECT * FROM clip WHERE authorId=? ORDER BY id DESC LIMIT 1';
+        const sql = 'SELECT * FROM clip WHERE authorId=? AND type=4 ORDER BY id ASC LIMIT 1';
         const stmt = this.db.prepare(sql);
         return stmt.get(authorId);
     }

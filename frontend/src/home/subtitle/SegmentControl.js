@@ -27,7 +27,13 @@ export const SegmentControl = ({clip, startTime, setStartTime, endTime, setEndTi
                 content: `切片处理中:${clip.title} ${startTime} -> ${endTime}`
             });
             const json = await ClipApi.fetchSegment(clip.id, startTime, endTime, audioChecked);
-            const url = `${config.url.segment}/${json.filename}`;
+            let url = '';
+            if (clip.type === 3 || clip.type === 4) {
+                url = `${config.static.url}/segments/${json.filename}`;
+            } else {
+                url = `${config.url.segment}/${json.filename}`;
+            }
+            
             setTimeout(async () => {
                 if (segmentName && segmentName.length > 0) {
                     let x = new XMLHttpRequest();
