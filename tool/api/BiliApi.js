@@ -5,14 +5,14 @@ import config from '../config.js';
 export default class BiliApi {
 
     static async fetchCid(bv) {
-        const res = await fetch(`http://api.bilibili.com/x/web-interface/view?bvid=${bv}`);
+        const res = await fetch(`${config.bili.api.url}/x/web-interface/view?bvid=${bv}`);
         const data = await res.json();
         return data.data.cid;
     }
 
     static async fetchStreamUrl(bv, cid) {
         const res = await new Promise((res, rej) => {
-            const playurl = `https://api.bilibili.com/x/player/playurl?bvid=${bv}&cid=${cid}&qn=120&fnval=128&fourk=1`;
+            const playurl = `${config.bili.api.url}/x/player/playurl?bvid=${bv}&cid=${cid}&qn=120&fnval=128&fourk=1`;
             const cmd = `curl '${playurl}' \
                 -H 'authority: api.bilibili.com' \
                 -H 'accept: application/json, text/javascript, */*; q=0.01' \
@@ -38,5 +38,10 @@ export default class BiliApi {
             });
         });
         return res.data.durl[0].url;
+    }
+
+    static async fetchVideoInfo(bvid) {
+        const url = `${config.bili.api.url}/x/web-interface/view?bvid=${bvid}`;
+        return await (await fetch(url)).json();
     }
 }

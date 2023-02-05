@@ -7,6 +7,7 @@ import pino from 'pino';
 import config from './config.js';
 import { errorHandler } from './middlewares.js';
 import SegmentService from './SegmentService.js';
+import SubtitleService from './SubtitleService.js';
 
 (async () => {
     const app = new Koa({ proxy: true });
@@ -15,6 +16,7 @@ import SegmentService from './SegmentService.js';
     app.context.logger = pino({ transport: { target: 'pino-pretty' } });
 
     app.context.segmentService = new SegmentService();
+    app.context.subtitleService = new SubtitleService();
 
     /**
      * hello
@@ -28,6 +30,13 @@ import SegmentService from './SegmentService.js';
      */
     router.get('/clips/:clipId/segments', async ctx => {
         ctx.body = await ctx.segmentService.make(ctx);
+    });
+
+    /**
+     * subtitle
+     */
+    router.get('/subtitles', async ctx => {
+        ctx.body = await ctx.subtitleService.fetchBvSubtitles(ctx);
     });
 
     app.use(koaBody({ 
