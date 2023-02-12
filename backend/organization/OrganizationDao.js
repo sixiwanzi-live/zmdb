@@ -17,7 +17,7 @@ export default class OrganizationDao {
     }
 
     update = (organization) => {
-        const sql = 'UPDATE organization SET name=@name WHERE id=@id';
+        const sql = 'UPDATE organization SET name=@name, avatar=@avatar WHERE id=@id';
         const stmt = this.db.prepare(sql);
         return stmt.run(organization);
     }
