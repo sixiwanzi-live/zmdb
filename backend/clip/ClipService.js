@@ -219,9 +219,12 @@ export default class ClipService {
         return ctx.clipDao.findByBv(ctx.request.query.bv);
     }
 
-    findLatestByAuthorId = (ctx) => {
+    findByAuthorId = (ctx) => {
         const authorId = parseInt(ctx.params.authorId);
-        return ctx.clipDao.findLatestByAuthorId(authorId);
+        const type = parseInt(ctx.request.query.type || '4');
+        const page = parseInt(ctx.request.query.page || '1');
+        const size = parseInt(ctx.request.query.size || '10');
+        return ctx.clipDao.findByAuthorId(authorId, type, page, size);
     }
 
     __findByOrganizationIdAndKeyword = (ctx) => {
