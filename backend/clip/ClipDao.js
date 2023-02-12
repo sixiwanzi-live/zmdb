@@ -66,7 +66,7 @@ export default class ClipDao {
     }
 
     findByAuthorId = (authorId, type, page, size) => {
-        const sql = 'SELECT * FROM clip WHERE authorId=? AND type=? ORDER BY id ASC LIMIT ?, ?';
+        const sql = 'SELECT * FROM clip WHERE authorId=? AND type=? ORDER BY id DESC LIMIT ?, ?';
         const stmt = this.db.prepare(sql);
         return stmt.all(authorId, type, (page - 1) * size, size);
     }
