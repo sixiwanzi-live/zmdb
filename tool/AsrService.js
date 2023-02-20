@@ -8,7 +8,9 @@ import { fromMilliseconds } from './util.js'
 
 export default class AsrService {
 
-    constructor() {}
+    constructor() {
+        this.busy = false;
+    }
 
     parse = async (ctx) => {
         const bv = ctx.request.query.bv;
@@ -33,6 +35,15 @@ export default class AsrService {
         await toAudio(videoUrl, filepath);
         await stat(filepath);
 
+        // 等待获取执行权限
+        while (this.busy) {
+            await new Promise((res, rej) => {
+                setTimeout(() => {
+                    res();
+                }, 1000);
+            });
+        }
+        this.busy = true;
         // 分段解析字幕
         let subtitles = [];
         let t = 0;
@@ -123,8 +134,8 @@ export default class AsrService {
                     const utterances = result.utterances;
                     for (let i = 0; i < utterances.length; ++i) {
                         const item = utterances[i];
-                        const start = fromMilliseconds(item.start_time);
-                        const end = fromMilliseconds(item.end_time);
+                        const start = fromMilliseconds(item.start_time + t * config.bcut.segDuration);
+                        const end = fromMilliseconds(item.end_time + t * config.bcut.segDuration);
                         const content = item.transcript;
                         subtitles.push({start, end, content});
                     }
@@ -144,6 +155,7 @@ export default class AsrService {
             const subtitle = subtitles[i];
             srt += `${i + 1}\r\n${subtitle.start} --> ${subtitle.end}\r\n${subtitle.content}\r\n\r\n`;
         }
+        setTimeout(() => { this.busy = false; }, config.bcut.taskInterval); // 等待一段时间后才恢复继续处理
         return srt;
     }
 }
