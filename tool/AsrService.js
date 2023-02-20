@@ -106,7 +106,7 @@ export default class AsrService {
                         res();
                     }, config.bcut.queryInterval)
                 });
-                const queryJson = await BiliApi.query(taskId);
+                const queryJson = await BcutApi.query(taskId);
                 if (queryJson.code !== 0) {
                     throw queryJson;
                 }
