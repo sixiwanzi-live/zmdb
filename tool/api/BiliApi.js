@@ -40,6 +40,29 @@ export default class BiliApi {
         return res.data.durl[0].url;
     }
 
+    static async fetchStreamUrls(bv, cid) {
+        const res = await fetch(`${config.bili.api.url}/x/player/playurl?bvid=${bv}&cid=${cid}&qn=120&fnval=128&fourk=1`, {
+            headers:{
+                "authority" : "api.bilibili.com",
+                "accept" : "application/json, text/javascript, */*; q=0.01",
+                "accept-language" : "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+                "cache-control" : "no-cache",
+                "cookie" : config.segment.cookie,
+                "origin" : "https://player.bilibili.com",
+                "pragma" : "no-cache",
+                "referer" : "https://player.bilibili.com/",
+                "sec-ch-ua" : 'Microsoft Edge";v="105", " Not;A Brand";v="99", "Chromium";v="105"',
+                "sec-ch-ua-mobile" : "?0",
+                "sec-ch-ua-platform" : "Windows",
+                "sec-fetch-dest" : "empty",
+                "sec-fetch-mode" : "cors",
+                "sec-fetch-site" : "same-site",
+                "user-agent" : "config.segment.userAgent"
+            }
+        });
+        return await res.json(); 
+    }
+
     static async fetchVideoInfo(bvid) {
         const url = `${config.bili.api.url}/x/web-interface/view?bvid=${bvid}`;
         return await (await fetch(url)).json();
