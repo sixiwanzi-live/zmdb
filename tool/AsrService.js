@@ -55,7 +55,7 @@ export default class AsrService {
             const segPath = `${config.web.tmpDir}/${segFilename}`;
             await segment(filepath, segPath, ss, to);
             const segInfo = await stat(segPath);
-            if (segInfo.size < 1024) {
+            if (segInfo.size < 10240) {
                 await unlink(segPath);
                 break;
             }
