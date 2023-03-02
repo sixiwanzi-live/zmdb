@@ -9,7 +9,7 @@ export const Sidebar = () => {
     const params = useParams();
     
     return (
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'background.paper', overflow: 'auto', maxHeight:'710px' }}>
             <List sx={{ p:0 }} component='nav'>
                 { organizations.map(organization => (
                     <ListItem disablePadding key={organization.id}>
