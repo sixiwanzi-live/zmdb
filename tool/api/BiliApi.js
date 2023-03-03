@@ -70,6 +70,6 @@ export default class BiliApi {
                 "cookie" : config.bili.api.cookie
             }
         });
-        return await (await fetch(url)).json();
+        return await res.json();
     }
 }
