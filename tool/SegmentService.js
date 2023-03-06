@@ -34,7 +34,7 @@ export default class SegmentService {
         // 如果存在相同的切片，则直接返回
         try {
             await stat(output);
-            PushApi.push('片段制作完成', `${clip.id},${clip.title}, ${filename}`);
+            PushApi.push('片段制作完成', `${clip.id},${clip.title},${filename}`);
             return { filename };
         } catch (ex) {}
 
@@ -62,7 +62,7 @@ export default class SegmentService {
                 '-avoid_negative_ts', 1,
                 output
             ];
-        } else if (clip.type === 2 || clip.type === 3 || clip.type === 4) {
+        } else if (clip.type === 2) {
             src = `https://${clip.playUrl}`;
             cmd = [
                 '-ss', st, 
@@ -74,7 +74,33 @@ export default class SegmentService {
                 '-avoid_negative_ts', 1,
                 output
             ];
-        } 
+        } else if (clip.type === 3) {
+            let a = clip.playUrl.split('/');
+            a[0] = config.segment.recordRoot;
+            src = a.join('/');
+            cmd = [
+                '-ss', st, 
+                '-to', et, 
+                '-accurate_seek', 
+                '-i', src,
+                '-c', 'copy',
+                '-avoid_negative_ts', 1,
+                output
+            ];
+        } else if (clip.type === 4) {
+            let a = clip.playUrl.split('/');
+            a[0] = config.segment.liveRoot;
+            src = a.join('/');
+            cmd = [
+                '-ss', st, 
+                '-to', et, 
+                '-accurate_seek', 
+                '-i', src,
+                '-c', 'copy',
+                '-avoid_negative_ts', 1,
+                output
+            ];
+        }
         // 仅下载音频需要添加额外的命令行参数
         if (audio === 'true') {
             cmd = ['-vn', ...cmd];
