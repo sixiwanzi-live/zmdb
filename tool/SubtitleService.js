@@ -13,6 +13,7 @@ export default class SubtitleService {
             ctx.logger.error(`${bv}未找到基础信息`);
             return '';
         }
+        ctx.logger.info(json);
         // 获取字幕信息
         if (json.data.subtitle.list.length > 0) {
             ctx.logger.info(`${bv})找到智能字幕`);

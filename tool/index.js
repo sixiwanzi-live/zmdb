@@ -8,7 +8,6 @@ import config from './config.js';
 import { errorHandler } from './middlewares.js';
 import SegmentService from './SegmentService.js';
 import SubtitleService from './SubtitleService.js';
-import AsrService from './AsrService.js';
 
 (async () => {
     const app = new Koa({ proxy: true });
@@ -18,7 +17,6 @@ import AsrService from './AsrService.js';
 
     app.context.segmentService = new SegmentService();
     app.context.subtitleService = new SubtitleService();
-    app.context.asrService = new AsrService();
 
     /**
      * hello
@@ -39,13 +37,6 @@ import AsrService from './AsrService.js';
      */
     router.get('/subtitles', async ctx => {
         ctx.body = await ctx.subtitleService.fetchBvSubtitles(ctx);
-    });
-
-    /**
-     * asr
-     */
-    router.get('/asr', async ctx => {
-        ctx.body =await ctx.asrService.parse(ctx);
     });
 
     app.use(koaBody({ 

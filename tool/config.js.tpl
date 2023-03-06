@@ -8,7 +8,8 @@ export default {
     },
     bili: {
         api: {
-            url: 'https://api.bilibili.com'
+            url: 'https://api.bilibili.com',
+            cookie: ''
         }
     },
     segment: {

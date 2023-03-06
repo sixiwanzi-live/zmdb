@@ -65,6 +65,11 @@ export default class BiliApi {
 
     static async fetchVideoInfo(bvid) {
         const url = `${config.bili.api.url}/x/web-interface/view?bvid=${bvid}`;
-        return await (await fetch(url)).json();
+        const res = await fetch(url, {
+            headers: {
+                "cookie" : config.bili.api.cookie
+            }
+        });
+        return await res.json();
     }
 }
