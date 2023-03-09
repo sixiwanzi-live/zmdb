@@ -149,7 +149,7 @@ export const SubtitleBody = () => {
             const json = await ClipApi.fetchSegment(selectedClip.id, startTime, endTime, audio);
             const filename = json.filename;
             let url = '';
-            if (selectedClip.type === 3 || selectedClip.type === 4) {
+            if (selectedClip.type === 3 || selectedClip.type === 4 || selectedClip.type === 5) {
                 url = `${config.static.url}/segments/${filename}`;
             } else {
                 url = `${config.url.segment}/${filename}`;

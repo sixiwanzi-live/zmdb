@@ -87,7 +87,7 @@ export default class SegmentService {
                 '-avoid_negative_ts', 1,
                 output
             ];
-        } else if (clip.type === 4) {
+        } else if (clip.type === 4 || clip.type === 5) {
             let a = clip.playUrl.split('/');
             a[0] = config.segment.liveRoot;
             src = a.join('/');

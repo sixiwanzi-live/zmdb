@@ -297,7 +297,7 @@ export default class ClipService {
         if (et - st < validation.segment.interval.lowerLimit) {
             throw error.segment.IntervalTooShort;
         }
-        if (clip.type === 3 || clip.type === 4) {
+        if (clip.type === 3 || clip.type === 4 || clip.type === 5) {
             const r = await SegmentApi.segment(clipId, startTime, endTime, audio);
             ctx.logger.info(r);
             return r;

@@ -28,7 +28,7 @@ export const SegmentControl = ({clip, startTime, setStartTime, endTime, setEndTi
             });
             const json = await ClipApi.fetchSegment(clip.id, startTime, endTime, audioChecked);
             let url = '';
-            if (clip.type === 3 || clip.type === 4) {
+            if (clip.type === 3 || clip.type === 4 || clip.type === 5) {
                 url = `${config.static.url}/segments/${json.filename}`;
             } else {
                 url = `${config.url.segment}/${json.filename}`;

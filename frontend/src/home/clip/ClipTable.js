@@ -42,6 +42,7 @@ export const ClipTable = () => {
                         : params.value.type === 2 ? '录播站'
                         : params.value.type === 3 ? '本地源'
                         : params.value.type === 4 ? '直播中'
+                        : params.value.type === 5 ? '已下播'
                         : '未知状态'
                     } 
                 </Link>

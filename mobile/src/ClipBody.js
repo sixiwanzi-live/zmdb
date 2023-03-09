@@ -48,6 +48,10 @@ export const ClipBody = () => {
                                         <Tag color='#FF6666' fill='solid' style={{ marginLeft: '5px' }}>
                                             直播中
                                         </Tag>
+                                    : filteredClips[index].type === 5 ?
+                                        <Tag color='#FDD194' fill='solid' style={{ marginLeft: '5px' }}>
+                                            已下播
+                                        </Tag>
                                     :
                                         <Tag color='#cccccc' fill='solid' style={{ marginLeft: '5px' }}>
                                             待解析
