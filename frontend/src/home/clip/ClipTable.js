@@ -31,7 +31,7 @@ export const ClipTable = () => {
         { field: 'time', headerName: '时间', flex:1, headerAlign:'center', align:'center' },
         { field: 'author', headerName: '直播间', flex:0.7, headerAlign:'center', align:'center', renderCell: params=> (
             params.value &&
-            <Link href={`${config.url.author}/${params.value.uid}`} underline='none' rel='noopener' target='_blank'><Avatar sx={{ width:'1.5rem', height:'1.5rem'}} src={`//${params.value.avatar}@60w_60h.webp`} alt={params.value.name} referrerpolicy="no-referrer" /></Link>
+            <Link href={`${config.url.author}/${params.value.uid}`} underline='none' rel='noopener' target='_blank'><Avatar sx={{ width:'1.5rem', height:'1.5rem'}} src={`//${params.value.avatar}@60w_60h.webp`} alt={params.value.name} /></Link>
         )},
         { field: 'src', headerName: '源', flex: 0.6, headerAlign:'center', align:'center', renderCell: (params) => (
             params.value &&
