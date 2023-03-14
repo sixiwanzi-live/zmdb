@@ -8,7 +8,6 @@ export default function Player({ option, getInstance, ...rest }) {
     const artRef = useRef();
 
     useEffect(() => {
-        console.log(option.url.replaceAll('.mp4', '.xml').replaceAll('.flv', '.xml'));
         const art = new Artplayer({
             ...option,
             container: artRef.current,
@@ -46,7 +45,7 @@ export default function Player({ option, getInstance, ...rest }) {
                 plugins: [
                     artplayerPluginDanmuku({
                         // 弹幕 XML 文件，和 Bilibili 网站的弹幕格式一致
-                        danmuku: option.url.replaceAll('.mp4', '.xml').replaceAll('.flv', '.xml'),
+                        danmuku: `https://seg.bili.studio:8443/5/柚恩不加糖/2023-03/20230312-201402-柚恩不加糖-【电台】柚来聊聊天.xml`
                     }),
                 ],
             },
