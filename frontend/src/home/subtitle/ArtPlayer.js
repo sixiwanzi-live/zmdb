@@ -8,6 +8,7 @@ export default function Player({ option, getInstance, ...rest }) {
     const artRef = useRef();
 
     useEffect(() => {
+        console.log(option.url.replaceAll('.mp4', '.xml').replaceAll('.flv', '.xml'));
         const art = new Artplayer({
             ...option,
             container: artRef.current,
