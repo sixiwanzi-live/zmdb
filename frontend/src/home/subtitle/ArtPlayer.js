@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Artplayer from 'artplayer';
+import artplayerPluginDanmuku from 'artplayer-plugin-danmuku';
 import flvjs from 'flv.js';
 import Hls from 'hls.js';
 
@@ -41,6 +42,12 @@ export default function Player({ option, getInstance, ...rest }) {
                         art.notice.show = '不支持播放格式：m3u8';
                     }
                 },
+                plugins: [
+                    artplayerPluginDanmuku({
+                        // 弹幕 XML 文件，和 Bilibili 网站的弹幕格式一致
+                        danmuku: option.url.replaceAll('.mp4', '.xml').replaceAll('.flv', '.xml'),
+                    }),
+                ],
             },
         });
 

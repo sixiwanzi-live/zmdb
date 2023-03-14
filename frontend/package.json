@@ -9,6 +9,7 @@
         "@mui/material": "latest",
         "@mui/x-data-grid": "latest",
         "artplayer": "^4.5.8",
+        "artplayer-plugin-danmuku": "^4.4.11",
         "flv.js": "^1.6.2",
         "hls.js": "^1.2.4",
         "install": "^0.13",
