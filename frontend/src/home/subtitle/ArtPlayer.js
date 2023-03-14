@@ -42,13 +42,13 @@ export default function Player({ option, getInstance, ...rest }) {
                         art.notice.show = '不支持播放格式：m3u8';
                     }
                 },
-                plugins: [
-                    artplayerPluginDanmuku({
-                        // 弹幕 XML 文件，和 Bilibili 网站的弹幕格式一致
-                        danmuku: `https://seg.bili.studio:8443/5/柚恩不加糖/2023-03/20230312-201402-柚恩不加糖-【电台】柚来聊聊天.xml`
-                    }),
-                ],
             },
+            plugins: [
+                artplayerPluginDanmuku({
+                    // 弹幕 XML 文件，和 Bilibili 网站的弹幕格式一致
+                    danmuku: option.url.replaceAll('.mp4', '.xml').replaceAll('.flv', '.xml'),
+                }),
+            ],
         });
 
         art.on('ready', () => {
