@@ -116,8 +116,8 @@ export const SubtitleDialog = ({clip, subtitles, status, setStatus}) => {
                         <iframe title={clip.title} width="100%" height="360" src={`//${clip.playUrl}&autoplay=true&t=${currentTime}`} scrolling="no" border="0" frameBorder="no" framespacing="0" allowFullScreen={true}></iframe> :
                         <ArtPlayer
                             option={{
-                                url: `//${clip.playUrl}`,
-                                poster: `//${clip.cover}`,
+                                url: `https://${clip.playUrl}`,
+                                poster: `https://${clip.cover}`,
                                 subtitle: {
                                     url: `${config.url.api}/clips/${clip.id}/srt`,
                                     type: 'srt',
